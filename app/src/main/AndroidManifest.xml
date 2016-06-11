@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="es.source.code">
+<manifest package="es.source.code"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <permission
+        android:name="scos.permission.ACCESSSCOS"
+        android:protectionLevel="dangerous"/>
 
     <application
         android:allowBackup="true"
@@ -10,9 +14,19 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.SCOSEntry">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.MainScreen"
+            android:permission="scos.permission.ACCESSSCOS"
+            android:parentActivityName=".activity.SCOSEntry"
+            >
+            <intent-filter>
+                <action android:name="scos.intent.action.SCOSMAIN"/>
+                <category android:name="scos.intent.category.SCOSLAUNCHER"/>
             </intent-filter>
         </activity>
     </application>

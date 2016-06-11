@@ -1,10 +1,12 @@
 # SCOS
 
-#Team Name : Galaxy
-#Team Member:
+### Team Name : Galaxy
+### Team Member:
 * 杜飞雷
 * 陈威
 * 詹志丹
 
-这是一个Android开发课的项目
+> E1. 完成
+>  
+> E2. 完成
 
