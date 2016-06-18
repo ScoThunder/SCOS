@@ -22,7 +22,7 @@ import es.source.code.R;
 public class LoginOrRegister extends Fragment implements View.OnClickListener {
 
     private EditText mEtUserName, mEtPswd;
-    private Button mBtnLogin, mBtnReturn;
+    private Button mBtnLogin, mBtnReturn, mBtnSignUp;
 
     OnBtnClicked mCallback;
 
@@ -31,7 +31,11 @@ public class LoginOrRegister extends Fragment implements View.OnClickListener {
     }
 
     public interface OnBtnClicked {
-        void onBtnClicked(String msg);
+        void onReturnBtnClicked(String msg);
+
+        void onLoginBtnClicked(String msg, String userName, String password);
+
+        void onSignUpBtnClicked(String msg, String userName, String password);
     }
 
     @Override
@@ -57,6 +61,7 @@ public class LoginOrRegister extends Fragment implements View.OnClickListener {
         mEtPswd = (EditText) view.findViewById(R.id.et_password);
         mBtnLogin = (Button) view.findViewById(R.id.btn_login);
         mBtnReturn = (Button) view.findViewById(R.id.btn_return);
+        mBtnSignUp = (Button) view.findViewById(R.id.btn_sign_up);
         mEtUserName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -103,6 +108,7 @@ public class LoginOrRegister extends Fragment implements View.OnClickListener {
         });
         mBtnLogin.setOnClickListener(this);
         mBtnReturn.setOnClickListener(this);
+        mBtnSignUp.setOnClickListener(this);
         return view;
     }
 
@@ -112,16 +118,26 @@ public class LoginOrRegister extends Fragment implements View.OnClickListener {
         if (mCallback == null) {
             return;
         }
+
+        String userName = mEtUserName.getText().toString();
+        String password = mEtPswd.getText().toString();
         switch (view.getId()) {
             case R.id.btn_login:
-                if (isDigitOrLetter(mEtUserName.getText().toString()) && isDigitOrLetter(mEtPswd.getText().toString())) {
-                    mCallback.onBtnClicked("LoginSuccess");
+                if (userName != null && password != null && isDigitOrLetter(userName) && isDigitOrLetter(password)) {
+                    mCallback.onLoginBtnClicked("LoginSuccess", userName, password);
                 } else {
-                    mCallback.onBtnClicked("LoginFailed");
+                    mCallback.onReturnBtnClicked("Return");
                 }
                 break;
             case R.id.btn_return:
-                mCallback.onBtnClicked("Return");
+                mCallback.onReturnBtnClicked("Return");
+                break;
+            case R.id.btn_sign_up:
+                if (userName != null && password != null && isDigitOrLetter(userName) && isDigitOrLetter(password)) {
+                    mCallback.onSignUpBtnClicked("RegisterSuccess", userName, password);
+                } else {
+                    mCallback.onReturnBtnClicked("Return");
+                }
                 break;
         }
     }

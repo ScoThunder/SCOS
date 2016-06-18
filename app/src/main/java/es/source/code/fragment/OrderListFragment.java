@@ -16,6 +16,7 @@ import es.source.code.R;
  */
 public class OrderListFragment extends Fragment {
 
+
     public OrderListFragment(){
 
     }
@@ -27,6 +28,7 @@ public class OrderListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_order_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_order_list, container, false);
+        return view;
     }
 }

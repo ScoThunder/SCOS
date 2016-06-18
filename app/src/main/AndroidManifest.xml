@@ -21,14 +21,36 @@
         </activity>
         <activity
             android:name=".activity.MainScreen"
-            android:permission="scos.permission.ACCESSSCOS"
+            android:launchMode="singleTask"
             android:parentActivityName=".activity.SCOSEntry"
+            android:permission="scos.permission.ACCESSSCOS"
             >
             <intent-filter>
                 <action android:name="scos.intent.action.SCOSMAIN"/>
                 <category android:name="scos.intent.category.SCOSLAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.ContainerActivity"
+            android:launchMode="singleTask"
+            android:parentActivityName=".activity.MainScreen"
+            >
+        </activity>
+        <activity
+            android:name=".activity.FoodView"
+            android:launchMode="singleTask"
+            android:parentActivityName=".activity.MainScreen"
+            >
+        </activity>
+
+        <activity
+            android:name=".activity.FoodOrderView"
+            android:launchMode="singleTask"
+            >
+        </activity>
+        <activity android:name=".activity.FoodDetailed"
+            android:launchMode="singleTask"
+            />
     </application>
 
 </manifest>

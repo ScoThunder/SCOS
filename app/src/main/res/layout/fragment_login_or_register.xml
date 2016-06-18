@@ -42,4 +42,11 @@
             android:layout_weight="1"
             android:text="@string/return_str"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/sign_up"/>
 </LinearLayout>

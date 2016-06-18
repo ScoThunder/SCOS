@@ -4,4 +4,14 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="return_str">Return</string>
+    <string name="sign_up">Sign Up</string>
+
+    <string name="menu_ordered">Ordered Food</string>
+    <string name="menu_check_order">Check Orders</string>
+    <string name="menu_request_service">Request Service</string>
+
+    <string name="ordered">Ordered</string>
+    <string name="disorder">Disorder</string>
+    <string name="submit">Submit</string>
+    <string name="pay">Pay</string>
 </resources>
