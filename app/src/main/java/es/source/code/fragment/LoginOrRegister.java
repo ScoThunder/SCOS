@@ -1,6 +1,8 @@
 package es.source.code.fragment;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,6 +27,10 @@ public class LoginOrRegister extends Fragment implements View.OnClickListener {
     private Button mBtnLogin, mBtnReturn, mBtnSignUp;
 
     OnBtnClicked mCallback;
+
+    public static final String PREFS_NAME = "SCOS";
+    public static final String KEY_USER_NAME = "userName";
+    public static final String KEY_LOGIN_STATE = "loginState";
 
     public LoginOrRegister() {
 
@@ -62,6 +68,18 @@ public class LoginOrRegister extends Fragment implements View.OnClickListener {
         mBtnLogin = (Button) view.findViewById(R.id.btn_login);
         mBtnReturn = (Button) view.findViewById(R.id.btn_return);
         mBtnSignUp = (Button) view.findViewById(R.id.btn_sign_up);
+
+        SharedPreferences prefs = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String userName = prefs.getString(KEY_USER_NAME, null);
+        if (userName != null) {
+            mBtnSignUp.setVisibility(View.GONE);
+            mEtUserName.setText(userName);
+            mBtnLogin.setVisibility(View.VISIBLE);
+        } else {
+            mBtnLogin.setVisibility(View.GONE);
+            mBtnSignUp.setVisibility(View.VISIBLE);
+        }
+
         mEtUserName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -125,21 +143,45 @@ public class LoginOrRegister extends Fragment implements View.OnClickListener {
             case R.id.btn_login:
                 if (userName != null && password != null && isDigitOrLetter(userName) && isDigitOrLetter(password)) {
                     mCallback.onLoginBtnClicked("LoginSuccess", userName, password);
+                    saveLoginState(userName);
                 } else {
                     mCallback.onReturnBtnClicked("Return");
                 }
                 break;
             case R.id.btn_return:
+                clearLoginState();
                 mCallback.onReturnBtnClicked("Return");
                 break;
             case R.id.btn_sign_up:
                 if (userName != null && password != null && isDigitOrLetter(userName) && isDigitOrLetter(password)) {
                     mCallback.onSignUpBtnClicked("RegisterSuccess", userName, password);
+                    saveLoginState(userName);
                 } else {
                     mCallback.onReturnBtnClicked("Return");
                 }
                 break;
         }
+    }
+
+    /**
+     * 保存用户登录状态
+     * <p/>
+     * 当用户点击登录，注册时触发
+     *
+     * @param userName
+     */
+    private void saveLoginState(String userName) {
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit();
+        editor.putString(KEY_USER_NAME, userName);
+        editor.putInt(KEY_LOGIN_STATE, 1);
+    }
+
+    /**
+     * 清除用户登录状态
+     */
+    private void clearLoginState() {
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit();
+        editor.putInt(KEY_LOGIN_STATE, 0);
     }
 
     private boolean isDigitOrLetter(String input) {

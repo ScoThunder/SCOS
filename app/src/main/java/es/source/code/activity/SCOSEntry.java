@@ -1,6 +1,7 @@
 package es.source.code.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
@@ -11,6 +12,21 @@ import es.source.code.R;
 public class SCOSEntry extends AppCompatActivity {
 
     protected GestureDetector mGestureDetector;
+
+
+    public static final String PRFS_NAME = "SCOS";
+    public static final String KEY_LOGIN_STATE = "loginState";
+
+    /**
+     * 判断登录状态
+     *
+     * @return 是否登录
+     */
+    private boolean isLogin() {
+        SharedPreferences prfs = getSharedPreferences(PRFS_NAME, MODE_PRIVATE);
+        int loginState = prfs.getInt(KEY_LOGIN_STATE, 0);
+        return loginState == 1 ? true : false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

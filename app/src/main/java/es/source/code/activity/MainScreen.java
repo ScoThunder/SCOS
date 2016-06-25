@@ -2,6 +2,7 @@ package es.source.code.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -40,7 +41,21 @@ public class MainScreen extends AppCompatActivity {
     public static final String PASS_WORD = "password";
     public static final String IS_OLD = "is_old";
 
+    public static final String PRFS_NAME = "SCOS";
+    public static final String KEY_LOGIN_STATE = "loginState";
+
     private User user;
+
+    /**
+     * 判断登录状态
+     *
+     * @return 是否登录
+     */
+    private boolean isLogin() {
+        SharedPreferences prfs = getSharedPreferences(PRFS_NAME, MODE_PRIVATE);
+        int loginState = prfs.getInt(KEY_LOGIN_STATE, 0);
+        return loginState == 1 ? true : false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +119,7 @@ public class MainScreen extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String itemName = items.get(position).name;
                 //TODO Just for test
-                if (user == null){
+                if (user == null) {
                     user = new User();
                     user.setOldUser(true);
                     user.setUserName("Test");
@@ -129,6 +144,11 @@ public class MainScreen extends AppCompatActivity {
                             startActivity(intent);
                         }
                         break;
+                    case "Help": {
+                        Intent intent = new Intent(MainScreen.this, SCOSHelper.class);
+                        startActivity(intent);
+                    }
+                    break;
                     default:
                         Intent intent = new Intent(MainScreen.this, ContainerActivity.class);
                         intent.putExtra(Intent.EXTRA_TEXT, itemName);
@@ -165,12 +185,12 @@ public class MainScreen extends AppCompatActivity {
 
         @Override
         public Object getItem(int i) {
-            return null;
+            return items.get(i);
         }
 
         @Override
         public long getItemId(int i) {
-            return 0;
+            return i;
         }
 
         @Override

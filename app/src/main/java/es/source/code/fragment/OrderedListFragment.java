@@ -27,10 +27,15 @@ public class OrderedListFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_ordered_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_ordered_list_test, container, false);
         mBtnPay = (Button) view.findViewById(R.id.btn_pay);
         mBtnPay.setOnClickListener(new View.OnClickListener() {
             @Override

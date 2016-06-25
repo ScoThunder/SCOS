@@ -1,6 +1,7 @@
 package es.source.code.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -11,7 +12,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,6 +39,7 @@ public class FoodOrderView extends AppCompatActivity implements OrderedListFragm
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private ProgressBar progressBar;
 
     public static final String USER_NAME = "user_name";
     public static final String PASS_WORD = "password";
@@ -56,6 +60,8 @@ public class FoodOrderView extends AppCompatActivity implements OrderedListFragm
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         Intent intent = getIntent();
         user.setUserName(intent.getStringExtra(USER_NAME));
@@ -89,7 +95,7 @@ public class FoodOrderView extends AppCompatActivity implements OrderedListFragm
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 break;
@@ -102,6 +108,9 @@ public class FoodOrderView extends AppCompatActivity implements OrderedListFragm
         if (user.isOldUser()) {
             Toast.makeText(FoodOrderView.this, "Hi, Dear Client! You got 30% off!", Toast.LENGTH_LONG).show();
         }
+
+        //TODO 模拟ProgressBar更新
+        new PayTask().execute();
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -168,6 +177,40 @@ public class FoodOrderView extends AppCompatActivity implements OrderedListFragm
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
+        }
+    }
+
+    public class PayTask extends AsyncTask<Void, Integer, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            for (int i = 0; i <= 100; i += 5) {
+                publishProgress(i);
+                try {
+                    Thread.sleep(60 * 5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                publishProgress(100);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            progressBar.setProgress(values[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progressBar.setVisibility(View.GONE);
         }
     }
 }

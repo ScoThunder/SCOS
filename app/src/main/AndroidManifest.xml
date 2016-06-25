@@ -2,6 +2,11 @@
 <manifest package="es.source.code"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+
     <permission
         android:name="scos.permission.ACCESSSCOS"
         android:protectionLevel="dangerous"/>
@@ -48,8 +53,14 @@
             android:launchMode="singleTask"
             >
         </activity>
-        <activity android:name=".activity.FoodDetailed"
+        <activity
+            android:name=".activity.FoodDetailed"
             android:launchMode="singleTask"
+            />
+        <activity
+            android:name=".activity.SCOSHelper"
+            android:launchMode="singleTask"
+            android:parentActivityName=".activity.MainScreen"
             />
     </application>
 

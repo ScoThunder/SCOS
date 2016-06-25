@@ -5,35 +5,38 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/lv_ordered"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/tv_foods_sum_count"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/tab_label"/>
+    <!---->
+    <!--<ListView-->
+    <!--android:id="@+id/lv_ordered"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"/>-->
 
-        <TextView
-            android:id="@+id/tv_foods_sum_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_foods_sum_count"/>
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center_vertical">-->
 
-        <Button
-            android:id="@+id/btn_pay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/pay"
-            />
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/tv_foods_sum_count"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="@dimen/tab_label"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_foods_sum_price"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_toRightOf="@id/tv_foods_sum_count"/>-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_pay"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:text="@string/pay"-->
+            <!--/>-->
+    <!--</RelativeLayout>-->
 </LinearLayout>
 
