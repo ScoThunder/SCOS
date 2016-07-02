@@ -2,6 +2,8 @@ package es.source.code.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -26,6 +28,7 @@ import es.source.code.fragment.DrinksFragment;
 import es.source.code.fragment.HotDishesFragment;
 import es.source.code.fragment.SeaFoodFragment;
 import es.source.code.model.User;
+import es.source.code.service.ServerObserverService;
 
 /**
  * Created by Hander on 16/6/17.
@@ -109,9 +112,47 @@ public class FoodView extends AppCompatActivity {
                 break;
             case R.id.menu_request_service:
                 break;
+            case R.id.menu_start_update:
+                if (item.getTitle().equals(getResources().getString(R.string.menu_start_update))) {
+                    //1）启动 ServerObserverService 服务，并向 ServerObserverService 发送
+                    // 信息 Message 属性 what 值为 1
+                    Intent intent = new Intent(FoodView.this, ServerObserverService.class);
+                    intent.putExtra(Intent.EXTRA_TEXT, "1");
+                    startService(intent);
+                    //3）“启动实时更新”Action 被点击后，将 Action 标签修改为“停止实时更新”
+                    item.setTitle(R.string.menu_stop_update);
+                } else {
+                    //4）当在 FoodView 界面中点击“停止实时更新”Action 时，向
+                    // ServerObserverService 发送 Message 属性 what 值为 0
+                    Intent intent = new Intent(FoodView.this, ServerObserverService.class);
+                    intent.putExtra(Intent.EXTRA_TEXT, "0");
+                    startService(intent);
+
+                    item.setTitle(R.string.menu_start_update);
+                }
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * 2 ） 在 FoodView 中 新 建 sMessageHandler 对 象 ， 重 写 方 法
+     * handleMessage()；当传入的 Message 属性 what 值为 10 时，解析该 Message
+     * 携带菜品库存信息（菜名称，库存量），并根据该值，更新 FoodView 菜
+     * 项信息
+     */
+    private Handler sMessageHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 10:
+                    String foodName = (String) msg.obj;//菜名
+                    int remain = msg.arg1;//库存
+                    //TODO some magic code
+                    break;
+            }
+        }
+    };
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
 

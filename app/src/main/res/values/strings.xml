@@ -9,6 +9,8 @@
     <string name="menu_ordered">Ordered Food</string>
     <string name="menu_check_order">Check Orders</string>
     <string name="menu_request_service">Request Service</string>
+    <string name="menu_start_update">Start Update</string>
+    <string name="menu_stop_update">Stop Update</string>
 
     <string name="ordered">Ordered</string>
     <string name="disorder">Disorder</string>
